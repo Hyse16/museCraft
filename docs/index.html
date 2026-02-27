@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>museCraft — README</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --border2: #3d444d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --primary: #7c3aed;
+    --primary-light: #a78bfa;
+    --primary-dim: #7c3aed22;
+    --accent: #06b6d4;
+    --accent-dim: #06b6d422;
+    --green: #3fb950;
+    --green-dim: #3fb95022;
+    --orange: #f97316;
+    --orange-dim: #f9731622;
+    --red: #f85149;
+    --yellow: #e3b341;
+    --pink: #ff7b72;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* 레이아웃 */
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    gap: 32px;
+  }
+
+  /* 사이드바 TOC */
+  .toc {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 40px;
+    align-self: flex-start;
+    height: fit-content;
+  }
+
+  .toc-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toc a {
+    display: block;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .toc a:hover {
+    color: var(--text);
+    background: var(--bg3);
+    border-left-color: var(--primary-light);
+  }
+
+  .toc a.sub {
+    padding-left: 20px;
+    font-size: 12px;
+  }
+
+  /* 메인 콘텐츠 */
+  .main { flex: 1; min-width: 0; }
+
+  /* 히어로 헤더 */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #1a0a2e 50%, #0d1117 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #7c3aed33 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, #06b6d433 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+    border: 1px solid;
+  }
+
+  .badge.purple { background: #7c3aed22; color: #a78bfa; border-color: #7c3aed44; }
+  .badge.cyan   { background: #06b6d422; color: #67e8f9; border-color: #06b6d444; }
+  .badge.green  { background: #3fb95022; color: #7ee787; border-color: #3fb95044; }
+  .badge.orange { background: #f9731622; color: #fdba74; border-color: #f9731644; }
+  .badge.red    { background: #f8514922; color: #ffa198; border-color: #f8514944; }
+  .badge.yellow { background: #e3b34122; color: #e3b341; border-color: #e3b34144; }
+
+  .hero-title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #e6edf3 0%, #a78bfa 50%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text2);
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+    max-width: 680px;
+    padding: 16px 20px;
+    background: var(--bg3);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-light);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* 섹션 */
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 20px 0 10px;
+  }
+
+  p { color: var(--text2); line-height: 1.8; margin-bottom: 12px; }
+
+  /* 카드 그리드 */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px #00000040;
+  }
+
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .card.purple { border-top: 2px solid var(--primary); }
+  .card.cyan   { border-top: 2px solid var(--accent); }
+  .card.green  { border-top: 2px solid var(--green); }
+  .card.orange { border-top: 2px solid var(--orange); }
+  .card.red    { border-top: 2px solid var(--red); }
+  .card.yellow { border-top: 2px solid var(--yellow); }
+
+  /* 기술 스택 테이블 */
+  .tech-group { margin-bottom: 28px; }
+
+  .tech-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tech-group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .tech-table th {
+    text-align: left;
+    padding: 8px 14px;
+    background: var(--bg3);
+    color: var(--text3);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+  }
+
+  .tech-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .tech-table tr:hover td { background: var(--bg3); }
+
+  .tech-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-light);
+    white-space: nowrap;
+  }
+
+  .tech-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* 코드 블록 */
+  .code-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .code-dots { display: flex; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+
+  pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #c9d1d9;
+  }
+
+  .c-comment { color: #6e7681; }
+  .c-keyword { color: #ff7b72; }
+  .c-string  { color: #a5d6ff; }
+  .c-func    { color: #d2a8ff; }
+  .c-num     { color: #79c0ff; }
+  .c-sym     { color: #f97316; }
+  .c-green   { color: #7ee787; }
+
+  /* 플로우 다이어그램 */
+  .flow {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    margin: 16px 0;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .flow-box {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    border: 1px solid;
+  }
+
+  .flow-box.purple { background: var(--primary-dim); color: var(--primary-light); border-color: #7c3aed44; }
+  .flow-box.cyan   { background: var(--accent-dim);  color: #67e8f9; border-color: #06b6d444; }
+  .flow-box.green  { background: var(--green-dim);   color: #7ee787; border-color: #3fb95044; }
+  .flow-box.orange { background: var(--orange-dim);  color: #fdba74; border-color: #f9731644; }
+  .flow-box.gray   { background: var(--bg3); color: var(--text2); border-color: var(--border2); }
+
+  .flow-arrow {
+    color: var(--text3);
+    font-size: 16px;
+    padding: 0 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* 인용 박스 */
+  .callout {
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 3px solid;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .callout.info    { background: var(--primary-dim); border-color: var(--primary-light); color: #c4b5fd; }
+  .callout.tip     { background: var(--green-dim);   border-color: var(--green); color: #86efac; }
+  .callout.warn    { background: var(--orange-dim);  border-color: var(--orange); color: #fdba74; }
+  .callout.note    { background: var(--accent-dim);  border-color: var(--accent); color: #a5f3fc; }
+
+  .callout strong { font-weight: 700; display: block; margin-bottom: 4px; }
+
+  /* 역할 카드 */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .role-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .role-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .role-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 7px;
+    line-height: 1.5;
+  }
+
+  .role-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  /* 구분선 */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* 면접 어필 */
+  .interview-box {
+    background: linear-gradient(135deg, #1a0a2e, #0a1628);
+    border: 1px solid #7c3aed44;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+
+  .interview-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary-light);
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .interview-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .interview-q {
+    color: var(--yellow);
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+
+  .interview-a { color: var(--text2); }
+
+  /* 푸터 */
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: var(--text3);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .toc { display: none; }
+    .role-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- 사이드바 TOC -->
+  <nav class="toc">
+    <div class="toc-title">목차</div>
+    <a href="#intro">프로젝트 소개</a>
+    <a href="#why" class="sub">주제 선정 이유</a>
+    <a href="#what" class="sub">프로젝트 역할</a>
+    <a href="#features">핵심 기능</a>
+    <a href="#roles">사용자 역할</a>
+    <a href="#architecture">아키텍처</a>
+    <a href="#cicd">CI/CD 파이프라인</a>
+    <a href="#stack">기술 스택 정의</a>
+    <a href="#frontend" class="sub">프론트엔드</a>
+    <a href="#backend" class="sub">백엔드</a>
+    <a href="#db" class="sub">데이터베이스</a>
+    <a href="#kafka" class="sub">Kafka</a>
+    <a href="#ai" class="sub">AI 연동</a>
+    <a href="#docker" class="sub">Docker</a>
+    <a href="#aws" class="sub">AWS</a>
+
+    <!-- 목차 하단 GitHub 버튼 -->
+    <a href="https://github.com/Hyse16/museCraft" target="_blank"
+      style="display:inline-flex; align-items:center; gap:6px; margin-top:16px;
+             padding:8px 12px; background:#7c3aed22; color:#a78bfa;
+             border:1px solid #7c3aed44; border-radius:6px; text-decoration:none;
+             font-size:12px; font-weight:600; transition:all 0.2s; width:100%;"
+      onmouseover="this.style.background='#7c3aed44'" onmouseout="this.style.background='#7c3aed22'">
+      <!-- GitHub 아이콘 -->
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      코드 보러가기
+    </a>
+
+  </nav>
+
+  <!-- 메인 -->
+  <main class="main">
+
+    <!-- 히어로 -->
+    <div class="hero" id="intro">
+      <div class="badge-row">
+        <span class="badge purple">Spring Boot 3.x</span>
+        <span class="badge cyan">Next.js 14</span>
+        <span class="badge green">MySQL 8.0</span>
+        <span class="badge orange">Apache Kafka</span>
+        <span class="badge red">Redis</span>
+        <span class="badge yellow">AWS EC2 · S3 · RDS</span>
+        <span class="badge purple">GitHub Actions</span>
+        <span class="badge cyan">Docker</span>
+        <span class="badge green">Claude API</span>
+      </div>
+
+      <h1 class="hero-title">museCraft</h1>
+      <p class="hero-sub">AI 크리에이터 브랜드 런칭 & 구독 플랫폼</p>
+
+      <div class="hero-desc">
+        누구나 자신만의 브랜드를 AI와 함께 5분 안에 만들고,
+        뉴스레터·디지털 상품·구독 멤버십으로 수익을 창출할 수 있는 플랫폼입니다.
+        Substack의 구독 모델 + Canva의 AI 디자인 + 개인 브랜드 스토어를 하나로 합쳤습니다.
+      </div>
+
+      <!-- GitHub 코드 보러가기 버튼 -->
+      <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 1;">
+        <a href="https://github.com/Hyse16/museCraft" target="_blank"
+          style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px;
+                 background:#7c3aed; color:#fff; border-radius:8px; text-decoration:none;
+                 font-size:14px; font-weight:600; transition:opacity 0.2s;"
+          onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          <!-- GitHub 아이콘 -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          코드 보러가기
+        </a>
+      </div>
+    </div>
+
+    <!-- 주제 선정 이유 -->
+    <section id="why">
+      <div class="section-header">
+        <div class="section-icon">💡</div>
+        <h2>주제 선정 이유</h2>
+      </div>
+
+      <p>
+        1인 크리에이터 경제(Creator Economy) 시장은 2024년 기준 약 <strong style="color:var(--text)">2,500억 달러</strong> 규모로 성장했습니다.
+        유튜버, 뉴스레터 작가, 디지털 노마드 등 개인이 브랜드가 되는 시대가 왔지만,
+        기존 플랫폼들은 쪼개져 있어요.
+      </p>
+
+      <div class="card-grid" style="margin: 20px 0;">
+        <div class="card purple">
+          <span class="card-icon">😤</span>
+          <div class="card-title">문제 1 — 플랫폼 파편화</div>
+          <p class="card-desc">브랜딩은 Canva, 뉴스레터는 Substack, 상품 판매는 Gumroad, 통계는 따로... 크리에이터가 5개 도구를 동시에 써야 함</p>
+        </div>
+        <div class="card cyan">
+          <span class="card-icon">💸</span>
+          <div class="card-title">문제 2 — 높은 진입 장벽</div>
+          <p class="card-desc">디자이너 없이 브랜드 아이덴티티(로고, 컬러, 슬로건)를 만들기 어렵고, 초기 비용이 높음</p>
+        </div>
+        <div class="card green">
+          <span class="card-icon">🚀</span>
+          <div class="card-title">해결 — 올인원 + AI</div>
+          <p class="card-desc">브랜드 생성부터 구독 수익화까지 하나의 플랫폼에서. AI가 브랜드 아이덴티티를 자동으로 설계</p>
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- 프로젝트가 하는 역할 -->
+    <section id="what">
+      <div class="section-header">
+        <div class="section-icon">🎯</div>
+        <h2>이 프로젝트가 하는 일</h2>
+      </div>
+
+      <div class="flow">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:16px;font-family:'JetBrains Mono',monospace;">PLATFORM FLOW</div>
+
+        <div class="flow-row">
+          <div class="flow-box purple">크리에이터 가입</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box cyan">AI 브랜드 생성</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">구독 티어 설정</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box orange">콘텐츠 발행</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box gray">수익 정산</div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="flow-row">
+          <div class="flow-box purple">구독자 탐색</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box cyan">브랜드 구독</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">콘텐츠 열람</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box orange">디지털 상품 구매</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box gray">다운로드</div>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <strong>핵심 가치</strong>
+        크리에이터는 콘텐츠에만 집중하고, 브랜딩·결제·정산·알림은 플랫폼이 자동으로 처리합니다.
+      </div>
+    </section>
+
+    <!-- 핵심 기능 -->
+    <section id="features">
+      <div class="section-header">
+        <div class="section-icon">⚡</div>
+        <h2>핵심 기능</h2>
+      </div>
+
+      <div class="card-grid">
+        <div class="card purple">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">AI 브랜드 자동 생성</div>
+          <p class="card-desc">브랜드명 + 키워드 입력 → Claude API가 슬로건, 브랜드 스토리, 컬러 팔레트 자동 생성. DALL-E로 로고 이미지까지.</p>
+        </div>
+        <div class="card cyan">
+          <span class="card-icon">📰</span>
+          <div class="card-title">뉴스레터 발행 시스템</div>
+          <p class="card-desc">AI 초안 작성 지원. 발행 시 Kafka로 구독자 전체에게 비동기 이메일 발송 (1만명도 3분 내 완료).</p>
+        </div>
+        <div class="card green">
+          <span class="card-icon">💎</span>
+          <div class="card-title">구독 티어 & 접근 제어</div>
+          <p class="card-desc">무료 / 베이직 / 프리미엄 3단계 티어. 티어별 콘텐츠 잠금/해제를 AOP로 공통 처리.</p>
+        </div>
+        <div class="card orange">
+          <span class="card-icon">📦</span>
+          <div class="card-title">디지털 상품 판매</div>
+          <p class="card-desc">PDF, 템플릿, 프리셋 등 디지털 파일 판매. S3 Presigned URL (5분 만료)로 미구독자 접근 차단.</p>
+        </div>
+        <div class="card red">
+          <span class="card-icon">💳</span>
+          <div class="card-title">결제 & 자동 정산</div>
+          <p class="card-desc">포트원(아임포트) 결제 연동. Spring Batch로 월말 크리에이터 정산 자동 계산 및 이메일 발송.</p>
+        </div>
+        <div class="card yellow">
+          <span class="card-icon">📊</span>
+          <div class="card-title">크리에이터 대시보드</div>
+          <p class="card-desc">구독자 수, 매출 추이, 콘텐츠 조회수, 다운로드 통계를 실시간으로 확인.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 사용자 역할 -->
+    <section id="roles">
+      <div class="section-header">
+        <div class="section-icon">👥</div>
+        <h2>사용자 역할</h2>
+      </div>
+
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-card-title" style="color:var(--red)">🏛 플랫폼 Admin</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--red)"></div>크리에이터 승인 / 정지 관리</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--red)"></div>플랫폼 수수료 정책 설정</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--red)"></div>전체 매출 / 사용자 통계</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--red)"></div>정산 내역 전체 조회</div>
+        </div>
+        <div class="role-card">
+          <div class="role-card-title" style="color:var(--primary-light)">🎨 크리에이터</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--primary-light)"></div>AI로 브랜드 아이덴티티 생성</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--primary-light)"></div>뉴스레터 작성 & 발행</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--primary-light)"></div>디지털 상품 업로드 & 판매</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--primary-light)"></div>구독 티어 설정 및 관리</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--primary-light)"></div>수익 / 구독자 통계 확인</div>
+        </div>
+        <div class="role-card">
+          <div class="role-card-title" style="color:var(--accent)">👤 구독자</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--accent)"></div>브랜드 탐색 & 팔로우</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--accent)"></div>구독 플랜 결제</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--accent)"></div>티어별 콘텐츠 열람</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--accent)"></div>디지털 상품 다운로드</div>
+          <div class="role-item"><div class="role-dot" style="background:var(--accent)"></div>구독 갱신 / 해지</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 아키텍처 -->
+    <section id="architecture">
+      <div class="section-header">
+        <div class="section-icon">🏗️</div>
+        <h2>서비스 아키텍처</h2>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+          <span class="code-lang">architecture</span>
+        </div>
+        <pre>
+<span class="c-comment">┌─────────────────────────────────────────────────────────┐</span>
+<span class="c-comment">│                    CLIENT LAYER                         │</span>
+<span class="c-comment">└─────────────────────────────────────────────────────────┘</span>
+         <span class="c-green">Next.js 14 (Vercel or AWS S3 + CloudFront)</span>
+                          │
+                          ▼
+<span class="c-comment">┌─────────────────────────────────────────────────────────┐</span>
+<span class="c-comment">│              API GATEWAY  :8080                         │</span>
+<span class="c-comment">│           Spring Cloud Gateway                          │</span>
+<span class="c-comment">│     인증 토큰 검증 · 라우팅 · Rate Limiting             │</span>
+<span class="c-comment">└─────────────────────────────────────────────────────────┘</span>
+         │           │           │           │
+         ▼           ▼           ▼           ▼
+    <span class="c-func">:8081</span>       <span class="c-func">:8082</span>       <span class="c-func">:8083</span>       <span class="c-func">:8084</span>
+  <span class="c-keyword">User</span>        <span class="c-keyword">Brand</span>    <span class="c-keyword">Subscription</span> <span class="c-keyword">Settlement</span>
+ <span class="c-string">Service</span>    <span class="c-string">Service</span>    <span class="c-string">Service</span>     <span class="c-string">Service</span>
+                                         (Spring Batch)
+         │           │           │           │
+         └───────────┴────┬──────┴───────────┘
+                          │
+                    <span class="c-sym">[ Kafka ]</span>
+                          │
+                    <span class="c-func">:8085</span>
+               <span class="c-keyword">Notification</span> <span class="c-string">Service</span>
+            (이메일 · 푸시 비동기 발송)
+
+<span class="c-comment">─── Infrastructure ────────────────────────────────────────</span>
+  MySQL(RDS)   Redis(ElastiCache)   S3   CloudWatch
+        </pre>
+      </div>
+
+
+    </section>
+
+    <!-- CI/CD -->
+    <section id="cicd">
+      <div class="section-header">
+        <div class="section-icon">🔄</div>
+        <h2>CI/CD 파이프라인 (GitHub Actions)</h2>
+      </div>
+
+      <div class="flow" style="margin-bottom:16px">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:16px;font-family:'JetBrains Mono',monospace;">PIPELINE FLOW</div>
+        <div class="flow-row" style="flex-wrap:wrap; gap:4px; align-items:center">
+          <div class="flow-box gray">git push</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">GitHub Actions 시작</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box cyan">빌드 + 테스트 (CI)</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">Docker 이미지 빌드</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box orange">DockerHub push</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">EC2 SSH 접속</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">🎉 자동 배포 완료</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+          <span class="code-lang">.github/workflows/deploy.yml</span>
+        </div>
+        <pre>
+<span class="c-keyword">on</span>:
+  <span class="c-string">push</span>:
+    <span class="c-string">branches</span>: [ <span class="c-num">main</span> ]  <span class="c-comment"># main 브랜치 push 시 실행</span>
+
+<span class="c-keyword">jobs</span>:
+  <span class="c-comment"># ── 1단계: CI (테스트) ──────────────</span>
+  <span class="c-func">test</span>:
+    <span class="c-string">runs-on</span>: ubuntu-latest  <span class="c-comment"># GitHub 서버에서 실행</span>
+    <span class="c-string">steps</span>:
+      - <span class="c-string">uses</span>: actions/checkout@v3      <span class="c-comment"># 코드 받기</span>
+      - <span class="c-string">uses</span>: actions/setup-java@v3    <span class="c-comment"># Java 설치</span>
+      - <span class="c-string">run</span>: ./gradlew test             <span class="c-comment"># 테스트 실행 (실패 시 중단)</span>
+
+  <span class="c-comment"># ── 2단계: CD (배포) ────────────────</span>
+  <span class="c-func">deploy</span>:
+    <span class="c-string">needs</span>: test  <span class="c-comment"># 테스트 성공해야만 실행</span>
+    <span class="c-string">steps</span>:
+      - <span class="c-string">name</span>: Docker 빌드 & DockerHub push
+        <span class="c-string">run</span>: |
+          docker build -t <span class="c-num">${{ secrets.DOCKER_USERNAME }}</span>/creatoros .
+          docker push  <span class="c-num">${{ secrets.DOCKER_USERNAME }}</span>/creatoros
+
+      - <span class="c-string">name</span>: EC2 자동 배포
+        <span class="c-string">uses</span>: appleboy/ssh-action@v1
+        <span class="c-string">with</span>:
+          <span class="c-string">host</span>: <span class="c-num">${{ secrets.AWS_HOST }}</span>      <span class="c-comment"># EC2 IP</span>
+          <span class="c-string">key</span>:  <span class="c-num">${{ secrets.AWS_SSH_KEY }}</span>   <span class="c-comment"># .pem 키</span>
+          <span class="c-string">script</span>: |
+            docker pull  creatoros:latest  <span class="c-comment"># 새 버전 받기</span>
+            docker stop  creatoros || true  <span class="c-comment"># 기존 중지</span>
+            docker run -d creatoros:latest  <span class="c-comment"># 새 버전 실행</span>
+        </pre>
+      </div>
+
+      <table class="tech-table" style="margin-top:16px">
+        <tr>
+          <th style="width:160px">브랜치</th>
+          <th style="width:140px">이벤트</th>
+          <th>자동 실행</th>
+        </tr>
+        <tr>
+          <td><span class="tech-name">feature/xxx</span></td>
+          <td>push</td>
+          <td style="color:var(--text3)">없음 — 로컬에서만 개발</td>
+        </tr>
+        <tr>
+          <td><span class="tech-name">develop</span></td>
+          <td>PR 생성</td>
+          <td style="color:var(--yellow)">CI 실행 (빌드 + 테스트만)</td>
+        </tr>
+        <tr>
+          <td><span class="tech-name">main</span></td>
+          <td>PR 머지</td>
+          <td style="color:var(--green)">CI + CD 전체 실행 → AWS 자동 배포</td>
+        </tr>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- 기술 스택 정의 -->
+    <section id="stack">
+      <div class="section-header">
+        <div class="section-icon">🛠️</div>
+        <h2>기술 스택 상세 정의</h2>
+      </div>
+
+      <!-- 프론트엔드 -->
+      <div class="tech-group" id="frontend">
+        <div class="tech-group-title">🖥️ 프론트엔드</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Next.js 14</span></td>
+            <td><span class="tech-tag" style="background:var(--primary-dim);color:var(--primary-light)">핵심</span></td>
+            <td>모든 화면 구현</td>
+            <td>React 기반 프레임워크. SSR로 브랜드 페이지 SEO 최적화. 브랜드 소개(SSG) · 뉴스레터 목록(SSR) · 결제화면(CSR)을 상황에 맞게 혼용</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">TypeScript</span></td>
+            <td><span class="tech-tag" style="background:var(--accent-dim);color:#67e8f9">필수</span></td>
+            <td>전체 프론트 코드</td>
+            <td>API 응답 타입 정의로 런타임 오류 사전 방지. 현업에서 사실상 필수</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Tailwind CSS</span></td>
+            <td><span class="tech-tag" style="background:var(--green-dim);color:#7ee787">스타일</span></td>
+            <td>전체 UI 스타일링</td>
+            <td>빠른 UI 개발. 브랜드별 primaryColor를 CSS 변수로 동적 테마 적용</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">React Query</span></td>
+            <td><span class="tech-tag" style="background:var(--orange-dim);color:#fdba74">상태관리</span></td>
+            <td>서버 데이터 동기화</td>
+            <td>구독 상태 · 뉴스레터 목록 자동 캐싱 & 리패칭. 구독 만료 시 UI 즉시 업데이트</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 백엔드 -->
+      <div class="tech-group" id="backend">
+        <div class="tech-group-title">⚙️ 백엔드</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Spring Boot 3.x</span></td>
+            <td><span class="tech-tag" style="background:var(--primary-dim);color:var(--primary-light)">핵심</span></td>
+            <td>모든 백엔드 서비스</td>
+            <td>국내 백엔드 표준. 5개 마이크로서비스(User · Brand · Subscription · Settlement · Notification)로 분리</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Spring Security + JWT</span></td>
+            <td><span class="tech-tag" style="background:var(--red)22;color:#ffa198">인증</span></td>
+            <td>회원 인증/인가</td>
+            <td>Access Token(15분) + Refresh Token(7일) 분리. Refresh Token을 Redis에 저장해 탈취 시 강제 만료 가능</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Spring Data JPA</span></td>
+            <td><span class="tech-tag" style="background:var(--accent-dim);color:#67e8f9">ORM</span></td>
+            <td>MySQL 데이터 접근</td>
+            <td>Fetch Join · @BatchSize로 N+1 문제 해결. 복잡한 집계 쿼리는 QueryDSL 병행</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Spring Batch</span></td>
+            <td><span class="tech-tag" style="background:var(--orange-dim);color:#fdba74">배치</span></td>
+            <td>구독 만료 · 월별 정산</td>
+            <td>자정마다 만료 구독 일괄 처리(Chunk 1000건). 월말 크리에이터 정산 자동 계산. 실패 시 재시도 내장</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Spring Cloud Gateway</span></td>
+            <td><span class="tech-tag" style="background:var(--green-dim);color:#7ee787">MSA</span></td>
+            <td>API 단일 진입점</td>
+            <td>모든 요청의 JWT 검증을 Gateway에서 일괄 처리. 서비스별 라우팅 · Rate Limiting 중앙 관리</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">QueryDSL</span></td>
+            <td><span class="tech-tag" style="background:var(--primary-dim);color:var(--primary-light)">쿼리</span></td>
+            <td>복잡한 통계/검색</td>
+            <td>타입 안전한 동적 쿼리. 브랜드 통계 집계 · 구독자 필터링 · 정산 기간별 조회에 활용</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- DB & 캐시 -->
+      <div class="tech-group" id="db">
+        <div class="tech-group-title">🗄️ 데이터베이스 & 캐시</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">MySQL 8.0</span></td>
+            <td><span class="tech-tag" style="background:var(--accent-dim);color:#67e8f9">메인 DB</span></td>
+            <td>모든 서비스 영구 저장</td>
+            <td>JSON 타입 컬럼으로 브랜드 아이덴티티 유연 저장. 복합 인덱스로 통계 쿼리 최적화. 운영은 AWS RDS 사용</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Redis</span></td>
+            <td><span class="tech-tag" style="background:var(--red)22;color:#ffa198">캐시</span></td>
+            <td>구독 상태 · JWT · 분산 락</td>
+            <td>구독 상태 캐싱(TTL 1시간)으로 DB 부하 97% 감소 (320ms → 8ms). 운영은 AWS ElastiCache 사용</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Kafka -->
+      <div class="tech-group" id="kafka">
+        <div class="tech-group-title">📨 메시지 큐</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Apache Kafka</span></td>
+            <td><span class="tech-tag" style="background:var(--orange-dim);color:#fdba74">이벤트</span></td>
+            <td>서비스 간 비동기 통신</td>
+            <td>뉴스레터 발행 → 구독자 1만명 이메일 동기 발송 불가 → Kafka 비동기 처리로 45분 → 3분. 서비스 간 장애 격리</td>
+          </tr>
+        </table>
+
+        <div class="code-block" style="margin-top:12px">
+          <div class="code-header">
+            <div class="code-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <span class="code-lang">Kafka Topics</span>
+          </div>
+          <pre>
+<span class="c-comment">newsletter.published</span>   → Notification Service (구독자 전체 이메일)
+<span class="c-comment">payment.completed</span>      → Settlement Service (정산 데이터 적재)
+<span class="c-comment">subscription.expired</span>   → Subscription Service (접근 차단) + 알림
+<span class="c-comment">brand.created</span>          → Notification Service (Admin 승인 요청)
+          </pre>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div class="tech-group" id="ai">
+        <div class="tech-group-title">🤖 AI 연동</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Claude API</span></td>
+            <td><span class="tech-tag" style="background:var(--green-dim);color:#7ee787">텍스트</span></td>
+            <td>브랜드 스토리 · 슬로건 · 뉴스레터 초안</td>
+            <td>브랜드명 + 키워드 → JSON 구조화된 브랜드 아이덴티티 반환 → DB 저장. ai_generation_logs로 토큰 비용 추적</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">DALL-E</span></td>
+            <td><span class="tech-tag" style="background:var(--primary-dim);color:var(--primary-light)">이미지</span></td>
+            <td>브랜드 로고 생성</td>
+            <td>키워드 → 이미지 생성 → S3 저장 → 브랜드 페이지 자동 적용. 일일 생성 한도 설정으로 비용 제어</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Docker -->
+      <div class="tech-group" id="docker">
+        <div class="tech-group-title">🐳 컨테이너</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">기술</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Docker</span></td>
+            <td><span class="tech-tag" style="background:var(--primary-dim);color:var(--primary-light)">컨테이너</span></td>
+            <td>모든 서비스 패키징</td>
+            <td>멀티 스테이지 빌드로 이미지 크기 최소화 (JDK 빌드 + JRE 실행 분리). CI/CD 파이프라인의 핵심 단위</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">Docker Compose</span></td>
+            <td><span class="tech-tag" style="background:var(--accent-dim);color:#67e8f9">로컬 환경</span></td>
+            <td>로컬 전체 스택 실행</td>
+            <td>docker-compose up 한 번으로 Spring Boot + MySQL + Redis + Kafka 동시 실행. 팀원 환경 통일</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- AWS -->
+      <div class="tech-group" id="aws">
+        <div class="tech-group-title">☁️ AWS 클라우드</div>
+        <table class="tech-table">
+          <tr>
+            <th style="width:160px">서비스</th>
+            <th style="width:90px">분류</th>
+            <th style="width:200px">사용 위치</th>
+            <th>선택 이유 & 활용 방법</th>
+          </tr>
+          <tr>
+            <td><span class="tech-name">EC2 (t2.micro)</span></td>
+            <td><span class="tech-tag" style="background:var(--red)22;color:#ffa198">서버</span></td>
+            <td>Spring Boot 컨테이너 실행</td>
+            <td>12개월 프리티어 무료. Docker Compose로 전체 스택 단일 서버 배포. 포트폴리오 비용 $0</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">RDS (MySQL)</span></td>
+            <td><span class="tech-tag" style="background:var(--orange-dim);color:#fdba74">관리형 DB</span></td>
+            <td>운영 MySQL 서버</td>
+            <td>자동 백업 · 보안 패치를 AWS가 관리. 12개월 프리티어 무료 (db.t2.micro)</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">S3</span></td>
+            <td><span class="tech-tag" style="background:var(--green-dim);color:#7ee787">파일 저장</span></td>
+            <td>로고 · 디지털 상품 파일</td>
+            <td>Presigned URL(5분 만료)로 미구독자 파일 접근 완전 차단. 5GB 프리티어 무료</td>
+          </tr>
+          <tr>
+            <td><span class="tech-name">CloudFront</span></td>
+            <td><span class="tech-tag" style="background:var(--accent-dim);color:#67e8f9">CDN</span></td>
+            <td>정적 파일 · 이미지 CDN</td>
+            <td>S3 파일을 전 세계 엣지 서버에서 제공. 이미지 로딩 속도 대폭 향상</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer">
+      museCraft — AI 크리에이터 브랜드 런칭 & 구독 플랫폼<br>
+      <span style="color:var(--text3);margin-top:6px;display:block">Spring Boot · Next.js · MySQL · Redis · Kafka · Docker · AWS · GitHub Actions · Claude API</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
