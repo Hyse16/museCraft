@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      routes:
+        # User Service
+        - id: user-service
+          uri: http://${USER_SERVICE_HOST:localhost}:8081
+          predicates:
+            - Path=/api/auth/**, /api/users/**
+
+        # Brand Service
+        - id: brand-service
+          uri: http://${BRAND_SERVICE_HOST:localhost}:8082
+          predicates:
+            - Path=/api/brands/**
+
+        # Subscription Service
+        - id: subscription-service
+          uri: http://${SUBSCRIPTION_SERVICE_HOST:localhost}:8083
+          predicates:
+            - Path=/api/subscriptions/**, /api/payments/**
+
+        # Settlement Service
+        - id: settlement-service
+          uri: http://${SETTLEMENT_SERVICE_HOST:localhost}:8084
+          predicates:
+            - Path=/api/settlements/**
+
+        # Notification Service
+        - id: notification-service
+          uri: http://${NOTIFICATION_SERVICE_HOST:localhost}:8085
+          predicates:
+            - Path=/api/notifications/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:3000"
+              - "https://*.musecraft.com"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+jwt:
+  secret: ${JWT_SECRET:musecraft-jwt-secret-key-must-be-at-least-32-characters-long}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    com.musecraft: DEBUG

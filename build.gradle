@@ -1,19 +1,41 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '3.2.3' apply false
+    id 'io.spring.dependency-management' version '1.1.4' apply false
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+allprojects {
+    group = 'com.musecraft'
+    version = '1.0.0'
 
-repositories {
-    mavenCentral()
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-test {
-    useJUnitPlatform()
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.3"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.1"
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }

@@ -1,0 +1,39 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: brand-service
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/musecraft?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:musecraft}
+    password: ${DB_PASSWORD:musecraft1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+
+# Claude API - 연동 시 활성화
+# claude:
+#   api:
+#     key: ${CLAUDE_API_KEY:}
+
+# AWS S3 - 연동 시 활성화
+# aws:
+#   s3:
+#     bucket: ${S3_BUCKET:musecraft-assets}
+#     region: ${AWS_REGION:ap-northeast-2}
+#   credentials:
+#     access-key: ${AWS_ACCESS_KEY:}
+#     secret-key: ${AWS_SECRET_KEY:}
+
+logging:
+  level:
+    com.musecraft: DEBUG

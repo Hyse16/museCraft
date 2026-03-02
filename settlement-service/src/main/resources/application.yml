@@ -1,0 +1,34 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: settlement-service
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/musecraft?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:musecraft}
+    password: ${DB_PASSWORD:musecraft1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  batch:
+    job:
+      enabled: false  # 스케줄러에서 수동 실행 (자동 실행 비활성화)
+    jdbc:
+      initialize-schema: always  # Spring Batch 메타 테이블 자동 생성
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+logging:
+  level:
+    com.musecraft: DEBUG
+    org.springframework.batch: INFO

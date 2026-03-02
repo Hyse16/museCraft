@@ -1,2 +1,9 @@
 rootProject.name = 'museCraft'
 
+include 'common'
+include 'gateway'
+include 'user-service'
+include 'brand-service'
+include 'subscription-service'
+include 'settlement-service'
+include 'notification-service'
